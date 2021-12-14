@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Alert, Button, StyleSheet, TextInput, ScrollView, ActivityIndicator, View, Image } from 'react-native';
+import { Alert, Button, StyleSheet, TextInput, ScrollView, ActivityIndicator, View, Image, Text } from 'react-native';
+//Importing Image
+import img from "../assets/User_details.png";
 import firebase from '../database/firebaseDb';
 
 class UserDetailScreen extends Component {
@@ -92,14 +94,21 @@ class UserDetailScreen extends Component {
       )
     }
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView>
         <Image
           style={styles.tinyLogo}
-          source={{
-            uri: 'https://reactnative.dev/img/tiny_logo.png',
-          }}
+          source={img}
         />
-        <View style={styles.inputGroup}>
+        <View style={styles.container}>
+          <View style={styles.agency_name_container}>
+            <View>
+              <Text style={styles.agency_txt}>Agency name</Text>
+            </View>
+            <View>
+              <Text style={styles.agency_txt}>10</Text>
+            </View>
+          </View>
+          {/* <View style={styles.inputGroup}>
           <TextInput
             placeholder={'Name'}
             value={this.state.agency}
@@ -126,6 +135,7 @@ class UserDetailScreen extends Component {
             onPress={this.openTwoButtonAlert}
             color="#E37399"
           />
+        </View> */}
         </View>
       </ScrollView>
     );
@@ -133,9 +143,26 @@ class UserDetailScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+  agency_name_container: {
+    flex: 1,
+    flexDirection: "row",
+    borderColor: "#000000",
+    borderWidth: 1,
+    width: "100%"
+  },
+  agency_txt: {
+    fontSize: 26,
+    fontWeight: "100",
+    width:"auto"
+  },
+  topImage: {
+    width: "100%",
+    height: 50,
+  },
   container: {
     flex: 1,
-    padding: 0
+    padding: 16,
+    paddingTop:30
   },
   inputGroup: {
     flex: 1,
@@ -155,10 +182,6 @@ const styles = StyleSheet.create({
   },
   button: {
     marginBottom: 7,
-  },
-  tinyLogo: {
-    width: 50,
-    height: 50,
   },
 })
 
