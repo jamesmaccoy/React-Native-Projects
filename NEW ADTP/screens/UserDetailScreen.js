@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert, Button, StyleSheet, TextInput, ScrollView, ActivityIndicator, View } from 'react-native';
+import { Alert, Button, StyleSheet, TextInput, ScrollView, ActivityIndicator, View, Image } from 'react-native';
 import firebase from '../database/firebaseDb';
 
 class UserDetailScreen extends Component {
@@ -9,25 +9,25 @@ class UserDetailScreen extends Component {
     this.state = {
       agency: '',
       repName: '',
-      isLoading: true
+      isLoading: false
     };
   }
 
   componentDidMount() {
-    const dbRef = firebase.firestore().collection('agencies').doc(this.props.route.params.userkey)
-    dbRef.get().then((res) => {
-      if (res.exists) {
-        const user = res.data();
-        this.setState({
-          key: res.id,
-          agency: user.agency,
-          repName: user.repName,
-          isLoading: false
-        });
-      } else {
-        console.log("Document does not exist!");
-      }
-    });
+    // const dbRef = firebase.firestore().collection('agencies').doc(this.props.route.params.userkey)
+    // dbRef.get().then((res) => {
+    //   if (res.exists) {
+    //     const user = res.data();
+    //     this.setState({
+    //       key: res.id,
+    //       agency: user.agency,
+    //       repName: user.repName,
+    //       isLoading: false
+    //     });
+    //   } else {
+    //     console.log("Document does not exist!");
+    //   }
+    // });
   }
 
   inputValueUpdate = (val, prop) => {
@@ -53,29 +53,29 @@ class UserDetailScreen extends Component {
       });
       this.props.navigation.navigate('UserScreen');
     })
-    .catch((error) => {
-      console.error("Error: ", error);
-      this.setState({
-        isLoading: false,
+      .catch((error) => {
+        console.error("Error: ", error);
+        this.setState({
+          isLoading: false,
+        });
       });
-    });
   }
 
   deleteUser() {
-    const dbRef = firebase.firestore().collection('agencies').doc(this.props.route.params.userkey)
-      dbRef.delete().then((res) => {
-          console.log('Item removed from database')
-          this.props.navigation.navigate('UserScreen');
-      })
+    // const dbRef = firebase.firestore().collection('agencies').doc(this.props.route.params.userkey)
+    //   dbRef.delete().then((res) => {
+    //       console.log('Item removed from database')
+    //       this.props.navigation.navigate('UserScreen');
+    //   })
   }
 
-  openTwoButtonAlert=()=>{
+  openTwoButtonAlert = () => {
     Alert.alert(
       'Delete User',
       'Are you sure?',
       [
-        {text: 'Yes', onPress: () => this.deleteUser()},
-        {text: 'No', onPress: () => console.log('No item was removed'), style: 'cancel'},
+        { text: 'Yes', onPress: () => this.deleteUser() },
+        { text: 'No', onPress: () => console.log('No item was removed'), style: 'cancel' },
       ],
       {
         cancelable: true
@@ -84,27 +84,33 @@ class UserDetailScreen extends Component {
   }
 
   render() {
-    if(this.state.isLoading){
-      return(
+    if (this.state.isLoading) {
+      return (
         <View style={styles.preloader}>
-          <ActivityIndicator size="large" color="#9E9E9E"/>
+          <ActivityIndicator size="large" color="#9E9E9E" />
         </View>
       )
     }
     return (
       <ScrollView style={styles.container}>
+        <Image
+          style={styles.tinyLogo}
+          source={{
+            uri: 'https://reactnative.dev/img/tiny_logo.png',
+          }}
+        />
         <View style={styles.inputGroup}>
           <TextInput
-              placeholder={'Name'}
-              value={this.state.agency}
-              onChangeText={(val) => this.inputValueUpdate(val, 'agency')}
+            placeholder={'Name'}
+            value={this.state.agency}
+            onChangeText={(val) => this.inputValueUpdate(val, 'agency')}
           />
         </View>
         <View style={styles.inputGroup}>
           <TextInput
-              placeholder={'Rep name'}
-              value={this.state.repName}
-              onChangeText={(val) => this.inputValueUpdate(val, 'repName')}
+            placeholder={'Rep name'}
+            value={this.state.repName}
+            onChangeText={(val) => this.inputValueUpdate(val, 'repName')}
           />
         </View>
         <View style={styles.button}>
@@ -113,8 +119,8 @@ class UserDetailScreen extends Component {
             onPress={() => this.updateUser()}
             color="#19AC52"
           />
-          </View>
-         <View>
+        </View>
+        <View>
           <Button
             title='Delete'
             onPress={this.openTwoButtonAlert}
@@ -129,7 +135,7 @@ class UserDetailScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 35
+    padding: 0
   },
   inputGroup: {
     flex: 1,
@@ -149,7 +155,11 @@ const styles = StyleSheet.create({
   },
   button: {
     marginBottom: 7,
-  }
+  },
+  tinyLogo: {
+    width: 50,
+    height: 50,
+  },
 })
 
 export default UserDetailScreen;

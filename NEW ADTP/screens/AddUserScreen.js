@@ -55,7 +55,6 @@ class AddUserScreen extends Component {
       )
     }
 
-
     return (
       <ScrollView style={styles.container}>
         <View style={styles.inputGroup}>
