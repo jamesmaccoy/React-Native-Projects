@@ -1,5 +1,4 @@
 {
-  "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -13,12 +12,12 @@
     "@react-native-community/masked-view": "^0.1.6",
     "@react-navigation/native": "^5.0.7",
     "@react-navigation/stack": "^5.0.9",
-    "expo": "~36.0.0",
+    "expo": "~34.0.0",
     "expo-cli": "^4.9.1",
     "firebase": "^7.8.2",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-34.0.2.tar.gz",
     "react-native-elements": "^1.2.7",
     "react-native-gesture-handler": "^1.6.0",
     "react-native-paper": "^4.9.2",
